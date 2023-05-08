@@ -69,6 +69,7 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
                         'testimonials',
+                        'contacts',
                     ],
                 ],
             ],

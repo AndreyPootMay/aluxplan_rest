@@ -17,6 +17,8 @@ use Yii;
  * @property int $active
  * @property string|null $created_at
  * @property string|null $updated_at
+ *
+ * @property GalleryPhotos[] $galleryPhotos
  */
 class Testimonials extends \yii\db\ActiveRecord
 {
@@ -26,6 +28,13 @@ class Testimonials extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'testimonials';
+    }
+
+    public function extraFields()
+    {
+        return [
+            'galleryPhotos'
+        ];
     }
 
     /**
@@ -75,5 +84,15 @@ class Testimonials extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * Gets query for [[GalleryPhotos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGalleryPhotos()
+    {
+        return $this->hasMany(GalleryPhotos::class, ['testimonial_id' => 'id']);
     }
 }

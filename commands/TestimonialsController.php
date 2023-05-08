@@ -16,6 +16,7 @@ final class TestimonialsController extends Controller
     {
         $faker = Factory::create();
 
+        Yii::$app->db->createCommand('SET foreign_key_checks = 0')->execute();
         Yii::$app->db->createCommand()
             ->truncateTable('testimonials')
             ->execute();
@@ -31,6 +32,8 @@ final class TestimonialsController extends Controller
             $testimonials->updated_at = date('Y-m-d H:i:s');
             $testimonials->save(false);
         }
+
+        Yii::$app->db->createCommand('SET foreign_key_checks = 1')->execute();
 
         $this->stdout("Testimonials table seeded successfully!\n", Console::BG_GREEN);
     }

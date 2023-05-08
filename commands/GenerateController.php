@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace app\commands;
 
 use Yii;
@@ -18,11 +20,11 @@ class GenerateController extends Controller
             $escaped = preg_quote('=' . env($item), '/');
             $keyReplacementPattern = "/^{$item}{$escaped}/m";
             $key = Security::generateRealUniqId(32);
-            file_put_contents($environmentFilePath, preg_replace(
-                $keyReplacementPattern,
-                "{$item}={$key}",
-                file_get_contents($environmentFilePath)
-            ));
+            file_put_contents(
+                $environmentFilePath,
+                preg_replace($keyReplacementPattern, "{$item}={$key}",
+                file_get_contents($environmentFilePath))
+            );
             $this->stdout("{$item} key [{$key}] set successfully.\n", Console::FG_GREEN);
         }
     }
