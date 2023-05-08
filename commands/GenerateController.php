@@ -22,8 +22,11 @@ class GenerateController extends Controller
             $key = Security::generateRealUniqId(32);
             file_put_contents(
                 $environmentFilePath,
-                preg_replace($keyReplacementPattern, "{$item}={$key}",
-                file_get_contents($environmentFilePath))
+                preg_replace(
+                    $keyReplacementPattern,
+                    "{$item}={$key}",
+                    file_get_contents($environmentFilePath)
+                )
             );
             $this->stdout("{$item} key [{$key}] set successfully.\n", Console::FG_GREEN);
         }
